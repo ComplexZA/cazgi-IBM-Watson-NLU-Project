@@ -38,25 +38,38 @@ class App extends React.Component {
   } 
   
   sendForSentimentAnalysis = () => {
-    this.setState({sentiment:true});
+    this.setState({ sentiment: true });
     let url = ".";
-    let mode = this.state.mode
-    url = url+"/" + mode + "/sentiment?"+ mode + "="+document.getElementById("textinput").value;
+    let mode = this.state.mode;
+    url =
+      url +
+      "/" +
+      mode +
+      "/sentiment?" +
+      mode +
+      "=" +
+      document.getElementById("textinput").value;
 
-    fetch(url).then((response)=>{
-        response.json().then((data)=>{
-        this.setState({sentimentOutput:data.label});
+    fetch(url).then((response) => {
+      response.json().then((data) => {
+        this.setState({ sentimentOutput: data.label });
         let output = data.label;
-        let color = "white"
-        switch(output) {
-          case "positive": color = "black";break;
-          case "negative": color = "black";break;
-          default: color = "black";
+        let color = "white";
+        switch (output) {
+          case "positive":
+            color = "green";
+            break;
+          case "negative":
+            color = "red";
+            break;
+          default:
+            color = "yellow";
         }
-        output = <div style={{color:color,fontSize:20}}>{output}</div>
-        this.setState({sentimentOutput:output});
-      })});
-  }
+        output = <div style={{ color: color, fontSize: 20 }}>{output}</div>;
+        this.setState({ sentimentOutput: output });
+      });
+    });
+  };
 
   sendForEmotionAnalysis = () => {
 
